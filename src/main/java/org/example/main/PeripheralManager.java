@@ -1,30 +1,19 @@
 package org.example.main;
 
 import org.example.peripherals.Peripheral;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PeripheralManager {
-    private final Peripheral keyboard;
-    private final Peripheral headphones;
-    private final Peripheral graphicsTablet;
+    private final Peripheral peripheral;
 
-    @Autowired
-    public PeripheralManager(
-            @Qualifier("keyboardBean") Peripheral keyboard,
-            @Qualifier("headphonesBean") Peripheral headphones,
-            @Qualifier("graphicsTabletBean") Peripheral graphicsTablet) {
-        this.keyboard = keyboard;
-        this.headphones = headphones;
-        this.graphicsTablet = graphicsTablet;
+    // Конструктор без DI — зависимость создаётся вручную
+    public PeripheralManager(ApplicationContext context) {
+        this.peripheral = context.getBean("PeripheralBean", Peripheral.class);
     }
 
-    public void displayModels() {
-        System.out.println("Peripheral Models:");
-        System.out.println("- " + keyboard.getModel());
-        System.out.println("- " + headphones.getModel());
-        System.out.println("- " + graphicsTablet.getModel());
+    public void printModel() {
+        System.out.println("Peripheral model: " + peripheral.getModel());
     }
 }
