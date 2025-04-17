@@ -6,3 +6,4 @@ public class Headphones implements Peripheral {
         return "Wireless Headphones";
     }
 }
+

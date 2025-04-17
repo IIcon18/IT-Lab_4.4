@@ -3,17 +3,23 @@ package org.example.main;
 import org.example.peripherals.Peripheral;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import java.util.*;
 
 @Component
 public class PeripheralManager {
-    private final Peripheral peripheral;
+    private final List<Peripheral> peripherals;
 
-    // Конструктор без DI — зависимость создаётся вручную
     public PeripheralManager(ApplicationContext context) {
-        this.peripheral = context.getBean("PeripheralBean", Peripheral.class);
+        this.peripherals = List.of(
+                context.getBean("headphonesBean", Peripheral.class),
+                context.getBean("keyboardBean", Peripheral.class),
+                context.getBean("GraphicsTabletBean", Peripheral.class)
+        );
     }
 
-    public void printModel() {
-        System.out.println("Peripheral model: " + peripheral.getModel());
+    public void printModels() {
+        for (Peripheral peripheral : peripherals) {
+            System.out.println("Peripheral model: " + peripheral.getModel());
+        }
     }
 }

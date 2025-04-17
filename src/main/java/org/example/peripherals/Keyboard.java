@@ -6,3 +6,4 @@ public class Keyboard implements Peripheral {
         return "Mechanical Keyboard";
     }
 }
+
